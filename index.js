@@ -18,16 +18,18 @@ mongoose
 
   // insert one recipe
   .then(() => {
-    return Recipe.create(data[0])
+    return Recipe.create(data[0]);
   })
   .then((recipe) => {
-    console.log(recipe.title)
-    return Recipe.deleteMany()
+    console.log(recipe.title);
+    return Recipe.deleteMany();
   })
+
   // insert many recipes
   .then(() => {
     return Recipe.insertMany(data);
   })
+
   // shows all the titles
   .then((recipes) => {
     recipes.forEach((recipe) => {
@@ -35,6 +37,7 @@ mongoose
     });
     return recipes;
   })
+
   // updates the recipe with the title 'Rigatoni alla Genovese' and turns the duration to 100 instead of 220
   .then(() => {
     return Recipe.findOneAndUpdate(
@@ -43,26 +46,31 @@ mongoose
       { new: true }
     );
   })
+
   // logs the new recipe
   .then((updatedRecipe) => {
     console.log(updatedRecipe);
   })
+
   // removes the recipe with the title of 'Carrot Cake'
   .then(() => {
     return Recipe.deleteOne({ title: "Carrot Cake" });
   })
+
   // logs that the recipe was deleted
   .then((removedRecipe) => {
-    console.log('removed a recipe', removedRecipe)
+    console.log("removed a recipe", removedRecipe);
   })
   .catch((error) => {
     console.error("Error connecting to the database", error);
   });
 
-mongoose.connection.close()
+// closes the connection
+mongoose.connection
+  .close()
   .then(() => {
-    console.log('connection closed')
+    console.log("connection closed");
   })
   .catch((err) => {
-    console.log('for whatever reason it did not close :(', err)
-  })
+    console.log("for whatever reason it did not close :(", err);
+  });
